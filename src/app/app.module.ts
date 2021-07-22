@@ -10,6 +10,15 @@ import { OrderItemsComponent } from './orders/order-items/order-items.component'
 import { AppRoutingModule } from './app-routing.module';
 import { OrderService } from './shared/order.service';
 
+import { FormsModule } from "@angular/forms";
+
+//Material
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material';
+
+import { HttpClientModule } from '@angular/common/http';
+import { ItemService } from './shared/item.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,8 +29,14 @@ import { OrderService } from './shared/order.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    HttpClientModule
   ],
-  providers: [OrderService],
+  entryComponents:[OrderItemsComponent],
+
+  providers: [OrderService, ItemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
