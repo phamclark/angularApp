@@ -15,6 +15,7 @@
         <label>Customer</label>
         <select name="CustomerId" #CustomerId="ngModel" [(ngModel)]="service.formData.CustomerId" class="form-control">
           <option value="0">--Select--</option>
+          <option *ngFor="let cus of this.customerList" value="{{cus.CustomerId}}">{{cus.Name}}</option>
         </select>
       </div>
     </div>
@@ -60,7 +61,7 @@
         <td>{{item.Price}}</td>
         <td>{{item.Quantity}}</td>
         <td>{{item.Total}}</td>
-        <td><a href="" class="btn btn-sm btn-info text-white" (click)="AddOrEditOrderItem(i, service.formData.OrderId)"><i class="fa fa-pencil"></i></a></td>
+        <td><a class="btn btn-sm btn-info text-white" (click)="AddOrEditOrderItem(i, service.formData.OrderId)"><i class="fa fa-pencil"></i></a></td>
       </tr>
     </tbody>
   </table>

@@ -1,15 +1,16 @@
 <h5 class="display-4">Order Food Item</h5>
 <hr>
-<form #form="ngForm" autocomplete="false">
+<form #form="ngForm" autocomplete="false" (submit)="onSubmit(form)">
   <input type="hidden" name="ItemName" #ItemName="ngModel" [(ngModel)]="formData.ItemName">
   <input type="hidden" name="OrderId" #OrderId="ngModel" [(ngModel)]="formData.OrderId">
   <input type="hidden" name="OrderItemId" #OrderItemId="ngModel" [(ngModel)]="formData.OrderItemId">
 
   <div class="form-group">
     <label>Food Items</label>
-    <select name="ItemId" #ItemId= "ngModel" [(ngModel)]="formData.ItemId" (change)="UpdatePrice($event.target)" class="form-control">
+    <select name="ItemId" #ItemId= "ngModel" [(ngModel)]="formData.ItemId" (change)="UpdatePrice($event.target)" class="form-control"
+    [class.is-invalid]="!isValid && formData.ItemId == 0">
       <option value="0">--Select--</option>
-      <option *ngFor="let item of this.itemList" value="{{item.itemId}}">{{item.name}}</option>
+      <option *ngFor="let item of this.itemList" value="{{item.ItemId}}">{{item.Name}}</option>
     </select>
   </div>
   <div class="form-group">
@@ -23,7 +24,8 @@
   </div>
   <div class="form-group">
     <label>Quantity</label>
-    <input type="text" (keyup)="UpdateTotal()" name="Quantity" #Quantity="ngModel" [(ngModel)]="formData.Quantity" class="form-control">
+    <input type="text" (keyup)="UpdateTotal()" name="Quantity" #Quantity="ngModel" [(ngModel)]="formData.Quantity" class="form-control"
+    [class.is-invalid]="!isValid && formData.Quantity == 0">
   </div>
   <div class="form-group">
     <label>Total</label>
@@ -38,7 +40,7 @@
     <button type="submit" [disabled]="!form.form.valid" class="btn btn-dark" >
       <i class="fa fa-database"></i> Submit
     </button>
-    <button type="submit" [disabled]="!form.form.valid" class="btn btn-outline-dark ml-1" >
+    <button type="submit" [disabled]="!form.form.valid" class="btn btn-outline-dark ml-1" [mat-dialog-close]>
       <i class="fa fa-close"></i> Close
     </button>
   </div>
