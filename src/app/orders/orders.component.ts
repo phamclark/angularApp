@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Order } from '../shared/order.model';
+import { OrderService } from '../shared/order.service';
 
 @Component({
   selector: 'app-orders',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor() { }
+  orderList: any;
+
+  constructor(
+    public service: OrderService,
+    public router: Router
+  ) { }
 
   ngOnInit() {
+    this.service.getOrderList().then(res=>{
+      debugger
+      this.orderList = res;
+    })
   }
-
+  openForEdit(orderId: number){
+    this.router.navigate(['/order/edit' + orderId]);
+  }
 }

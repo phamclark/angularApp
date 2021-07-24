@@ -1,5 +1,5 @@
 
-<form autocomplete="off" #form="ngForm" *ngIf="service.formData">
+<form autocomplete="off" #form="ngForm" *ngIf="service.formData" (submit)="onSubmit()">
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -69,5 +69,8 @@
     <button type="submit" [disabled]="!form.form.valid" class="btn btn-dark" >
       <i class="fa fa-database"></i> Submit
     </button>
+    <a class="btn btn-outline-dark ml-1" routerLink="/orders">
+      <i class="fa fa-table"> View Orders</i>
+    </a>
   </div>
 </form>

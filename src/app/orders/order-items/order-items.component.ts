@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { Router } from '@angular/router';
 import { Item } from 'src/app/shared/item.model';
 import { ItemService } from 'src/app/shared/item.service';
 import { OrderItem } from 'src/app/shared/order-item.model';
@@ -18,7 +19,8 @@ export class OrderItemsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<OrderItemsComponent>,
     public service: ItemService,
-    public orderService: OrderService
+    public orderService: OrderService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -70,7 +72,7 @@ export class OrderItemsComponent implements OnInit {
         else{
           this.orderService.orderItems.push(form.value);
         }
-        
+        this.router.navigate(['/order']);
       }
       else{
         this.orderService.orderItems[this.data.orderItemIndex] = form.value;

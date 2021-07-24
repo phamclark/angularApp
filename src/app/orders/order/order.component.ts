@@ -8,6 +8,7 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
 import { ItemService } from 'src/app/shared/item.service';
 import { CustomerService } from 'src/app/shared/customer.service';
 import { Customer } from 'src/app/shared/customer.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -22,18 +23,26 @@ export class OrderComponent implements OnInit {
     public service: OrderService,
     public itemService: ItemService,
     public customerService: CustomerService,
-    public dialog: MatDialog) 
+    public dialog: MatDialog,
+    public router: Router,
+    public currentRouter: ActivatedRoute) 
     { }
 
   ngOnInit() {
-    this.resetForm();
+    let orderId = this.currentRouter.snapshot.paramMap.get('id');
+    if(orderId == null){
+      this.resetForm();
+    }
+    else{
+      
+    }
     this.customerService.getCumstomerList().then(res=>{
       this.customerList = res as Customer[];
     });
   }
   resetForm(form? :NgForm) {
     this.service.formData = {
-      OrderId : null,
+      OrderId : 0,
       OrderNo : Math.floor(100000 + Math.random()*900000).toString(),
       CustomerId: 0,
       PMethod:'',
@@ -60,5 +69,11 @@ export class OrderComponent implements OnInit {
     },0);
 
     this.service.formData.GTotal = parseFloat(this.service.formData.GTotal.toFixed(2));
+  }
+
+  onSubmit(){
+    this.service.addOrUpdateOrder().then(res=>{
+      this.resetForm();
+    });
   }
 }
